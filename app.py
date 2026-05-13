@@ -180,16 +180,25 @@ st.set_page_config(layout="wide")
 #def get_conn():
     #return psycopg2.connect(os.environ["DATABASE_URL"])
 
-#@st.cache_resource
+
 @st.cache_resource
+def get_conn():
+
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        st.error("DATABASE_URL not found")
+        st.stop()
+
+    return psycopg2.connect(database_url)
 #def get_conn():
     #return psycopg2.connect(
         #"postgresql://postgres.gmpepshnxwdzdjfzhsgk:TsafackThereseFowanMichelPharel@aws-1-eu-north-1.pooler.supabase.com:6543/postgres"
     #)
-def get_conn():
-    return psycopg2.connect(
-        os.getenv("DATABASE_URL")
-    )
+#def get_conn():
+    #return psycopg2.connect(
+        #os.getenv("DATABASE_URL")
+    #)
 
 
 # ======================
